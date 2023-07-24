@@ -27,6 +27,8 @@ typedef DragChildWhenDragging = Widget Function(
     List<DraggableGridItem> list, int index);
 typedef DragPlaceHolder = PlaceHolderWidget Function(
     List<DraggableGridItem> list, int index);
+typedef DragStarted = void Function(BuildContext context);
+typedef DragStopped = void Function(BuildContext context);
 
 class DraggableGridViewBuilder extends StatefulWidget {
   /// [children] will show the widgets in Gridview.builder.
@@ -65,6 +67,8 @@ class DraggableGridViewBuilder extends StatefulWidget {
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
   final String? restorationId;
   final Clip clipBehavior;
+  final DragStarted? onDragStarted;
+  final DragStopped? onDragStopped;
 
   const DraggableGridViewBuilder({
     Key? key,
@@ -91,6 +95,8 @@ class DraggableGridViewBuilder extends StatefulWidget {
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
     this.restorationId,
     this.clipBehavior = Clip.hardEdge,
+    this.onDragStarted,
+    this.onDragStopped,
   }) : super(key: key);
 
   @override
@@ -152,6 +158,8 @@ class DraggableGridViewBuilderState extends State<DraggableGridViewBuilder> {
                     widget.dragChildWhenDragging?.call(_orgList, index),
                 placeHolder: widget.dragPlaceHolder?.call(_orgList, index),
                 dragCompletion: widget.dragCompletion,
+                onDragStarted: widget.onDragStarted,
+                onDragStopped: widget.onDragStopped,
               );
       },
       itemCount: _list.length,

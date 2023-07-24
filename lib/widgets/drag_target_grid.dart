@@ -7,6 +7,8 @@ class DragTargetGrid extends StatefulWidget {
   final Widget? childWhenDragging;
   final PlaceHolderWidget? placeHolder;
   final DragCompletion? dragCompletion;
+  final DragStarted? onDragStarted;
+  final DragStopped? onDragStopped;
 
   const DragTargetGrid({
     Key? key,
@@ -15,6 +17,8 @@ class DragTargetGrid extends StatefulWidget {
     this.feedback,
     this.childWhenDragging,
     this.placeHolder,
+    this.onDragStarted,
+    this.onDragStopped,
     required this.dragCompletion,
   }) : super(key: key);
 
@@ -56,6 +60,8 @@ class DragTargetGridState extends State<DragTargetGrid> {
                 index: widget.index,
                 feedback: widget.feedback,
                 childWhenDragging: widget.childWhenDragging,
+                onDragStarted: widget.onDragStarted,
+                onDragStopped: widget.onDragStopped,
                 onDragCancelled: () => _onDragComplete(_lastIndex),
               )
             : PressDraggableGridView(
